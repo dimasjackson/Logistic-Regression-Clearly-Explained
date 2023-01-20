@@ -1,1 +1,3 @@
 # Logistic-Regression-Clearly-Explained
+
+Logístic Regression is a statistical model that is used in classification and predictive analysis. This model is also know as Logit and it is characterized by a single binary dependent variable, i. e. a variable that only can take two values, often labeled as 0 and 1. Binary values are widely udsed in statistics to model the probablity of a certain event occuring, such as the probability of a pacient being health, a tumor being malignant or not, if an email is spam or not and if a team win or loose. Therefore, Logistic Regression has a large variety of applications. 
