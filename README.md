@@ -3,11 +3,15 @@
 Logistic Regression is a statistical model that is used in classification and predictive analysis. This model is also know as Logit and it is characterized by a single binary dependent variable, i. e. a variable that only can take two values, often labeled as 0 and 1. Binary values are widely udsed in statistics to model the probablity of a certain event occuring, such as the probability of a pacient being health, a tumor being malignant or not, if an email is spam or not and if a team win or loose. Therefore, Logistic Regression has a large variety of applications. In this tutorial we will present a clear explanation about logistic regression models, build from scratch a model and compare it with the scikit learn implementaion.
 
 The logistic function is defined by:
+
 $$ p(x) = \dfrac{1}{1+e^{-(x-\mu)/s}} $$
+
 where $\mu$ is the midpoint of the curve ($p(\mu)=1/2$) and $s$ a scale parameter that determines the spread of the probability distribution. This function is also called **sigmoid function**, because of its 's' shape.
 
 The logistic fuction is used to generate predictions as we will see below. Furthermore, it is interesting to write this function as 
+
 $$ p(x) = \dfrac{1}{1+e^{-(\beta_0 + \beta_1 x)}} \,,$$ 
+
 where $\beta_0 = -\mu/s$ is the intercept of the line $y = \beta_0 + \beta_1 x$ and $\beta_1 = 1/s$ is its slope. The parameter $\beta_0$ is also called "bias" and $\beta_1$ "weights". The particular values of these quantities that maximizes the likelyhood function are what we need to find to make predictions.
 
 ![image](https://user-images.githubusercontent.com/114688989/232498711-17e90cde-7a8d-4ac5-9d5e-3134d6077c34.png)
@@ -28,22 +32,30 @@ The binary logistic regression can be used with one **explanatory variable** and
 ![image](https://user-images.githubusercontent.com/114688989/232499069-502a6418-dc20-40ba-87f5-66f81ae60d91.png)
 
 To predict if a student will pass or not we need to consider the loss function, which is a function that represents the "price to pay" for inaccuracy of predictions. Usually, the logistic loss function is used as the measure of goodness of a fit in logistic regression. Considering that $p_k$ is the probability that the $k-$th student will pass the exam and $1-p_k$ the fail probability, the log loss for the $k-$th point is:
+
 $$ \begin{cases}
 -\ln p_{k} & \text{if }y_{k}=1\\
 -\ln(1-p_{k}) & \text{if }y_{k}=0
 \end{cases} $$
 
 Note that log loss is always greater than or equal to 0, equals 0 only in case of a perfect prediction, and approaches to infinity when predictions get worse. The two cases can be combined into a function called cross entropy:
+
 $$ -y_k \ln p_k -(1-y_k) \ln (1-p_k) $$
 
 The sum of the this term for all elements is the negative likelihood function:
+
 $$ -l = -\sum_k^N [y_k \ln p_k +(1-y_k) \ln (1-p_k)]$$
 
 To estimate the probability of an outcome we need to find the values of $\beta_0$ and $\beta_1$ that minimizes the negative likelihood (or maximizes the positive likelihood, if you prefer). This is accomplished taking the derivative of the likelihood with respect to these parameters (or applying the gradient operator in high dimension problems):
+
 $$ 0 = \frac{\partial l}{\partial \beta_0} = \sum_{k=1}^N(y_k-p_k) $$
+
 $$ 0 = \frac{\partial l}{\partial \beta_1} = \sum_{k=1}^N(y_k-p_k)x_k $$
+
 Then we need to solve the above two equations for  $\beta_{0}$ and $\beta_{1}$, which generally requires the use of numerical methods. For example, we may start with $\beta_0 = 0$ and $ \beta_1 = 0$ and iterate the model increasing these parameters by a fraction of the gradient. After that, the probability of passing or failing the exam can be calculated using the sigmoid function
+
 $$ p = \dfrac{1}{1+e^{-t}}\,,$$
+
 where $t = \beta_0 + x\beta_1$. Let's implement this calculation using python functions
 
 
